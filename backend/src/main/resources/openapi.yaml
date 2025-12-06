@@ -1,0 +1,28 @@
+openapi: 3.0.1
+info:
+  title: autoservice
+  description:
+  version: v1
+  contact:
+    name: AlexeyZarechnev
+
+tags:
+  - name: Ping
+    description: Tag for ping operation
+
+paths:
+  /v1/ping:
+    get:
+      tags:
+        - "Ping"
+      summary: "Check if server is alive"
+      description: "Returns pong as answer"
+      operationId: pong
+      responses:
+        200:
+          description: pong
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "pong"
