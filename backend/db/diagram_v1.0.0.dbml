@@ -1,0 +1,115 @@
+Table active_orders [headercolor: #175e7a] {
+	id integer [ pk, increment, not null, unique ]
+}
+
+Table archive_orders [headercolor: #175e7a] {
+	id integer [ pk, increment, not null, unique ]
+}
+
+Table orders [headercolor: #175e7a] {
+	id integer [ pk, increment, not null, unique ]
+	car_id integer [ not null ]
+	client_id integer [ not null ]
+	status varchar(20) [ not null ]
+	creation_time timestamp [ not null, default: `NOW()` ]
+}
+
+Table cars [headercolor: #175e7a] {
+	id integer [ pk, increment, not null, unique ]
+	state_number varchar(10) [ not null ]
+	vin varchar(17) [ not null ]
+	manufacturer varchar(50) [ not null ]
+	model varchar(255) [ not null ]
+	year_of_manufacture smallint
+}
+
+Table clients [headercolor: #175e7a] {
+	id integer [ pk, increment, not null, unique ]
+	first_name varchar(30) [ not null ]
+	last_name varchar(30) [ not null ]
+	middle_name varchar(30)
+	phone_number varchar(20) [ not null ]
+	email varchar(64)
+
+	indexes {
+		(first_name, last_name) [ name: 'clients_index_0' ]
+		(phone_number) [ name: 'clients_index_1' ]
+	}
+}
+
+Table operations [headercolor: #175e7a] {
+	id integer [ pk, increment, not null, unique ]
+	price integer [ not null ]
+}
+
+Table engineers [headercolor: #175e7a] {
+	id integer [ pk, increment, not null, unique ]
+	first_name varchar(30) [ not null ]
+	last_name varchar(30) [ not null ]
+}
+
+Table orders_operations [headercolor: #175e7a] {
+	order_id integer [ pk, increment, not null, unique ]
+	operation_id integer [ not null ]
+	engineer_id integer [ not null ]
+}
+
+Table orders_parts [headercolor: #175e7a] {
+	order_id integer [ pk, increment, not null, unique ]
+	part_id integer [ not null ]
+}
+
+Table parts [headercolor: #175e7a] {
+	id integer [ pk, increment, not null, unique ]
+	name varchar(255) [ not null ]
+	"article number" integer [ not null ]
+	remains smallint [ not null ]
+	price integer [ not null ]
+}
+
+Table users [headercolor: #175e7a] {
+	id integer [ pk, increment, not null, unique ]
+	login varchar(50) [ not null ]
+	password_hash varchar(255) [ not null ]
+	engineer_id integer
+}
+
+Ref fk_active_orders_order_id {
+	active_orders.id - orders.id [ delete: cascade, update: no action ]
+}
+
+Ref fk_archive_orders_order_id {
+	archive_orders.id - orders.id [ delete: cascade, update: no action ]
+}
+
+Ref fk_orders_client_id {
+	orders.client_id > clients.id [ delete: cascade, update: no action ]
+}
+
+Ref fk_orders_car_id {
+	orders.car_id > cars.id [ delete: no action, update: no action ]
+}
+
+Ref fk_orders_operations_engineer_id {
+	orders_operations.engineer_id > engineers.id [ delete: cascade, update: no action ]
+}
+
+Ref fk_orders_operations_operation_id {
+	orders_operations.operation_id > operations.id [ delete: no action, update: no action ]
+}
+
+Ref fk_orders_operations_order_id {
+	orders_operations.order_id > orders.id [ delete: no action, update: no action ]
+}
+
+Ref fk_orders_parts_part_id {
+	orders_parts.part_id > parts.id [ delete: no action, update: no action ]
+}
+
+Ref fk_orders_parts_order_id {
+	orders_parts.order_id > orders.id [ delete: no action, update: no action ]
+}
+
+Ref fk_users_engineer_id {
+	users.engineer_id - engineers.id [ delete: no action, update: no action ]
+}
