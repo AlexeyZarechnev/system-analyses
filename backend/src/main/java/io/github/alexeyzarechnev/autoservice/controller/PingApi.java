@@ -3,7 +3,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package io.github.alexeyzarechnev.autoservice.controllers;
+package io.github.alexeyzarechnev.autoservice.controller;
 
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;

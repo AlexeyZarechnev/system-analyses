@@ -1,4 +1,4 @@
-package io.github.alexeyzarechnev.autoservice.controllers;
+package io.github.alexeyzarechnev.autoservice.controller;
 
 import org.springframework.web.context.request.NativeWebRequest;
 
