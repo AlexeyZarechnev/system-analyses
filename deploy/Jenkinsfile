@@ -1,0 +1,71 @@
+pipeline {
+    agent any
+    
+    environment {
+        GITHUB_TOKEN = credentials('github-token')
+        REPO = 'AlexeyZarechnev/system-analyses'
+    }
+    
+    stages {
+        
+        stage('Checkout') {
+            steps {
+                git(
+                    url: 'https://github.com/AlexeyZarechnev/system-analyses',
+                    branch: 'master'
+                )
+            }
+        }
+        
+        stage('Test and Build') {
+            steps {
+                dir('backend') {
+                    sh './mvnw clean package'
+                }
+            }
+        }
+        
+        stage('Read version') {
+            steps {
+                dir('backend') {
+                    script {
+                        VERSION = sh(
+                            script: "./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout",
+                            returnStdout: true
+                        ).trim()
+                        echo "Version: ${VERSION}"
+                    }
+                }
+            }
+        }
+        
+        stage('Upload JAR to GitHub Release') {
+            steps {
+                sh """
+                JAR=\$(ls backend/target/*.jar | head -n 1)
+        
+                curl -s -X POST \
+                  -H "Authorization: token ${GITHUB_TOKEN}" \
+                  -H "Content-Type: application/json" \
+                  https://api.github.com/repos/${REPO}/releases \
+                  -d '{
+                    "tag_name": "v${VERSION}",
+                    "name": "Release v${VERSION}"
+                  }' > release.json
+        
+                UPLOAD_URL=\$(grep '"upload_url"' release.json \
+                  | sed -E 's/.*"upload_url": "([^"]+)".*/\\1/' \
+                  | sed 's/{.*//')
+        
+                echo "UPLOAD_URL=\$UPLOAD_URL"
+        
+                curl -s -X POST \
+                  -H "Authorization: token ${GITHUB_TOKEN}" \
+                  -H "Content-Type: application/java-archive" \
+                  --data-binary "@\$JAR" \
+                  "\${UPLOAD_URL}?name=\$(basename \$JAR)"
+                """
+            }
+        }
+    }
+}
