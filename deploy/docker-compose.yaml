@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: autoservice-db
+    environment:
+      POSTGRES_DB: autoservice
+      POSTGRES_USER: autoservice
+      POSTGRES_PASSWORD: autoservice
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build: 
+      context: .
+      dockerfile: ./Dockerfile-app
+    container_name: autoservice-app
+    depends_on:
+      - db
+    environment:
+      GITHUB_REPO: AlexeyZarechnev/system-analyses
+      APP_VERSION: v0.0.1-SNAPSHOT
+      JAR_NAME: autoservice-0.0.1-SNAPSHOT.jar
+
+      POSTGRES_DB: autoservice
+      POSTGRES_USER: autoservice
+      POSTGRES_PASSWORD: autoservice
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres-data:
