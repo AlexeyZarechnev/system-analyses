@@ -14,16 +14,16 @@
 
 1. ✅ [результат](docs/technical_specification.md) Написать ТЗ - 1, максимум 2 страницы, много не надо
 2. ✅ [результат](docs/interface.pdf) Прототип пользовательского интерфейса (Бальзамик мокапс, Figma  или draw.io) по ТЗ из 1 лабораторной. ()
-3. 🔁 [результат](backend/db/diagram_v1.0.0.svg) Схема базы данных в Oracle SQL Developer Data modeller или чем-то аналогичном, Скриты создания БД и объектов БД (таблицы, процедуры, представления) по ТЗ из 1 лабораторной (backend/db)
-4. 🔁 [результат](docs/diagrams/BPMN.png) Диаграммы BPMN и Sequence по ТЗ из 1 лабораторной
+3. ✅ [результат](backend/db/diagram_v1.0.0.svg) Схема базы данных в Oracle SQL Developer Data modeller или чем-то аналогичном, Скриты создания БД и объектов БД (таблицы, процедуры, представления) по ТЗ из 1 лабораторной (backend/db)
+4. ✅ [результат](docs/diagrams/BPMN.png) Диаграммы BPMN и Sequence по ТЗ из 1 лабораторной
 5. ❌ Реализация системы по ТЗ из 1 лабораторной на любом языке программирования, желательно Java
-6. 🔁 [деплой](deploy/docker-compose.yaml), [CI/CD](deploy/Jenkinsfile) Развертывание в k8s или отдельно докер. Настройка CI\CD через Gitlab или Jenkins. 
+6. ✅ [деплой](deploy/docker-compose.yaml), [CI/CD](deploy/Jenkinsfile) Развертывание в k8s или отдельно докер. Настройка CI\CD через Gitlab или Jenkins. 
 7. ❌ Документация по интерфейсам и алгоритмам (220 - архитектура, 230 - сервисы, 240 - UI).
-8. 🔁 [результат](https://alexeyzarechnev-4795061.postman.co/workspace/alexeyzarechnev's-Workspace~be3d994b-21bb-403c-8d46-1b07c030421a/flow/697778b3010ddb0014f537b5) Тест сьют для сервисов на Postman или SoapUI. Создание, редактирование, контроль и удаление сущности. (Автотесты Back)
-9. 🔁 [результат](https://platform.stratascratch.com/user/Stratocasster) SQL - 10 заданий простой, 10 средней, 10 сложной с [сайта](http://stratascratch.com/) (это вопросы с собесов)
+8. ✅ [результат](https://alexeyzarechnev-4795061.postman.co/workspace/alexeyzarechnev's-Workspace~be3d994b-21bb-403c-8d46-1b07c030421a/flow/697778b3010ddb0014f537b5) Тест сьют для сервисов на Postman или SoapUI. Создание, редактирование, контроль и удаление сущности. (Автотесты Back)
+9. ✅ [результат](https://platform.stratascratch.com/user/Stratocasster) SQL - 10 заданий простой, 10 средней, 10 сложной с [сайта](http://stratascratch.com/) (это вопросы с собесов)
 10. ❌ Поставить Grafana, научить свой сервис отдавать статус в графану, настроить уведомления: при появлении ошибок в логах сервиса, а также при недоступности сервиса
 11. ❌ Освоить Selenium - написать для своего приложения какие-то автотесты на Selenium или Selenid (автотесты UI)
-12. 🔁 [результат](/lab12/clickhouse.sh) Настроить интеграцию Kafka и Clickhouse. В топик кафки отправлять целые числа, в Clickhouse настроить чтение топика, Настроить DLQ, через materialized view считать сумму положительных и отрицательных чисел, 
+12. ✅ [результат](/lab12/clickhouse.sh) Настроить интеграцию Kafka и Clickhouse. В топик кафки отправлять целые числа, в Clickhouse настроить чтение топика, Настроить DLQ, через materialized view считать сумму положительных и отрицательных чисел, 
 
 ## Примеры тем на выбор
 
